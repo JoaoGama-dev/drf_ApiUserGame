@@ -3,7 +3,15 @@ version: "3.9"
 services:
   client:
     container_name: client
+    # Deixando o docker-compose ser responsável por rodar o servidor permite que vc rode outros comandos com esse client!
+    # Vc pode rodar por exemplo docker-compose run client python manage.py makemigrations para fazer as migrações
+    # Vc pode rodar por exemplo docker-compose run client python manage.py test para rodar os testes
+    # Vc pode rodar por exemplo docker-compose run client python manage.py shell para entrar no shell
+    # E se vc rodar o docker-compose up, ele vai rodar esse comando padrão de ligar o servidor!
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     build: .
+    volumes:
+      - ./src/:/app
     ports:
       - "8000:8000"
     environment:
