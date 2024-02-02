@@ -3,10 +3,10 @@ from . import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register('Users', views.UserView)
-router.register('Games', views.GamerView)
+router.register('user', views.UserViewSet, 'user')
+router.register('game', views.GamerViewSet, 'game')
 
 urlpatterns = [
-    path('', include(router.urls))
+    *router.urls
 ]
 
